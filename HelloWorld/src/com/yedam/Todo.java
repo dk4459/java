@@ -28,7 +28,7 @@ public class Todo {
 			} else if (num == 3) {
 				System.out.printf("현재 잔액은 %d원 입니다.\n", sum);
 			} else if (num == 4) {
-				System.out.println("성공적으로 종료하였습니다.");
+				System.out.println("성공적으로 종료하였습니다..");
 				run = false;
 			}
 
