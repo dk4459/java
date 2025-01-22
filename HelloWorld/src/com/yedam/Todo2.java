@@ -31,12 +31,31 @@ public class Todo2 {
 				for (int i = 0; i < friendAry.length; i++) {
 					System.out.printf("이름,연락처,성별을 입력하세요  => 홍길동,010-1234-1234,남");
 					String add = scn.nextLine();
+					boolean exist = true;
+					for (int j = 0; j < friendAry.length; j++) {
+						if (friendAry[j] != null) {
+							if (friendAry[j].split(",")[0].equals(add.split(",")[0])) {
+								System.out.println("이미 같은이름인 사람이있습니다. 그래도 입력하시겠습니까? yes or no");
+								String choice = scn.nextLine();
+								if (choice.equals("yes")) {
+									exist = true;
+								} else if (choice.equals("no")) {
+									System.out.println("등록하지않았습니다.");
+									exist = false;
+								} else {
+									System.out.println("해당 값을 입력하지 않아 등록이 실패하였습니다.");
+									exist = false;
+								}
+							}
+						}
+					}
 					if (add.equals("stop")) {
 						break;
-					} else {
+					} else if (exist) {
 						friendAry[i] = add;
-						System.out.println("정상적으로 입력되었습니다.");
+						System.out.println("정상적으로 입력되었습니다." + friendAry[i]);
 					}
+
 				}
 				break;
 			case 3:
@@ -74,7 +93,7 @@ public class Todo2 {
 						String name = friendAry[i].split(",")[0];
 						if (selectName.equals(name)) {
 							System.out.printf("이름,연락처,성별을 입력하세요  => 홍길동,010-1234-1234,남");
-							friendAry[i]=scn.nextLine();
+							friendAry[i] = scn.nextLine();
 							System.out.println("수정이 완료되었습니다.");
 						}
 					}
