@@ -14,8 +14,12 @@ public class Todo {
 			if (num == 1) { // 입금
 				System.out.print("얼마를 넣으실겁니까> ");
 				int add = Integer.parseInt(scn.nextLine());
+				if(sum+add>100000) {
+				System.out.println("현재 잔액이 100,000원을 넘기실 수 없습니다. ");
+				}else {
 				sum += add;
-				System.out.printf("%d의 금액을 성공적으로 입금하였습니다.\n", sum);
+				System.out.printf("%d원의 금액을 성공적으로 입금하였습니다.\n", sum);
+				}
 			} else if (num == 2) {
 				System.out.print("얼마를 출금하실겁니까> ");
 				int minus = Integer.parseInt(scn.nextLine());
