@@ -23,7 +23,7 @@ public class Todo2 {
 						String name = friendAry[i].split(",")[0];
 						String tel = friendAry[i].split(",")[1];
 						String gender = friendAry[i].split(",")[2];
-						System.out.printf("이름: %s 전화번호: %s 성별 %s \n", name, tel, gender);
+						System.out.printf("이름: %3s 전화번호: %11s 성별 %1s \n", name, tel, gender);
 					}
 				}
 				break;
