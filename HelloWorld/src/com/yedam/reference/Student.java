@@ -31,6 +31,14 @@ public class Student {
 		this.engScore = engScore;
 		this.mathScore = mathScore;
 	}
+	
+	public Student(String studentName, int engScore, int mathScore, Gender gender) {
+		super();
+		this.studentName = studentName;
+		this.engScore = engScore;
+		this.mathScore = mathScore;
+		this.gender = gender;
+	}
 
 	// 게터세터
 	public String getStudentName() {
