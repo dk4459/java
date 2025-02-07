@@ -1,7 +1,11 @@
-package com.yedam.interfaces;
+package com.yedam.interfaces.emp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.yedam.interfaces.Employee;
 
 public class EmpAryExe implements EmpDAO{
 	Employee[] employees = new Employee[10]; //저장
@@ -57,15 +61,13 @@ public class EmpAryExe implements EmpDAO{
 		return false;
 	}
 	@Override
-	public Employee[] search(Employee emp) {
-		Employee[] empSearch = new Employee[10];
-		int idx = 0;
+	public List<Employee> search(Employee emp) {
+		List<Employee> empSearch = new ArrayList<>();
 		for(int i =0; i< employees.length; i++) {
 			if(employees[i] != null &&
 			emp.getSalary() < employees[i].getSalary()&&
 			employees[i].getEmpName().indexOf(emp.getEmpName())!=-1) {
-				empSearch[idx] = employees[i];
-				idx++;
+				empSearch.add(employees[i]);
 			}
 		}
 		

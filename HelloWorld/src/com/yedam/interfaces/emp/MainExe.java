@@ -1,7 +1,10 @@
-package com.yedam.interfaces;
+package com.yedam.interfaces.emp;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Scanner;
+
+import com.yedam.interfaces.Employee;
 
 /*
  * 사원관리   App v.1
@@ -105,13 +108,11 @@ public class MainExe {
 				Employee empSal = new Employee();
 				empSal.setSalary(sal);
 				empSal.setEmpName(eName);
-				Employee[] emp = dao.search(empSal);
-				for (int i = 0; i < emp.length; i++) {
-					if (emp[i] != null) {
-						System.out.println("이름: " + emp[i].getEmpName() + " 사원번호: " + emp[i].getEmpNo() + " 전화번호: "
-								+ emp[i].getTelNo() + " 입사일자: " + sdf.format(emp[i].getHireDate()) + " 급여: "
-								+ emp[i].getSalary());
-					}
+				List<Employee> emp = dao.search(empSal);
+				for (Employee emps : emp) {
+						System.out.println("이름: " + emps.getEmpName() + " 사원번호: " + emps.getEmpNo() + " 전화번호: "
+								+ emps.getTelNo() + " 입사일자: " + sdf.format(emps.getHireDate()) + " 급여: "
+								+ emps.getSalary());
 				}
 				break;
 			case 9:
