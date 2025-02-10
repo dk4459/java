@@ -6,6 +6,7 @@ import com.yedam.interfaces.Employee;
 
 /*
  * 등록, 수정, 삭제, 조회
+ * EmpAryExe.java, EmpListExe.java EmpDBExe.java
  */
 public interface EmpDAO {
 	

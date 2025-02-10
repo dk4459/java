@@ -15,7 +15,7 @@ import com.yedam.interfaces.Employee;
 public class MainExe {
 	
 	// 스캐너, run,
-	static EmpDAO dao = new EmpListExe();
+	static EmpDAO dao = new EmpDBExe();
 	static Scanner scn = new Scanner(System.in);
 	
 	  public static void main(String[] args) {
