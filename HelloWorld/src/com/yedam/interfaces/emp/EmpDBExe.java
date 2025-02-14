@@ -63,7 +63,9 @@ public class EmpDBExe implements EmpDAO{
 		try {
 			Statement stmt =getConnect().createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * "
-								+ "FROM tbl_employees ");
+								+ "FROM tbl_employees "
+								+ "WHERE emp_name = nvl('"+emp.getEmpName()+"',emp_name) "
+								+ "ORDER BY emp_no");
 			while(rs.next()) {
 				Employee emp1 = new Employee();
 				emp1.setEmpNo(rs.getInt("emp_no"));
