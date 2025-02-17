@@ -70,6 +70,7 @@ public class EmpDBExe implements EmpDAO{
 				Employee emp1 = new Employee();
 				emp1.setEmpNo(rs.getInt("emp_no"));
 				emp1.setEmpName(rs.getString("emp_name"));
+				emp1.setTelNo(rs.getString("tel_no"));
 				emp1.setHireDate(rs.getDate("hire_date"));
 				emp1.setSalary(rs.getInt("salary"));
 				
