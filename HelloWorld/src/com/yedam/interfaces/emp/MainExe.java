@@ -13,13 +13,13 @@ import com.yedam.interfaces.Employee;
  * Employee, EmpAryExe,EmpListExe, EmpDAO(인터페이스)
  */
 public class MainExe {
-	
+
 	// 스캐너, run,
 	static EmpDAO dao = new EmpDBExe();
 	static Scanner scn = new Scanner(System.in);
-	
-	  public static void main(String[] args) {
-		
+
+	public static void main(String[] args) {
+
 		boolean run = true;
 
 		// 배열, 컬렉션
@@ -79,25 +79,20 @@ public class MainExe {
 				}
 				if (dao.modifyEmp(new Employee(empNo, "", empTel, hireDate, sal))) {
 					System.out.println("수정완료");
-				}
-				;
+				} else {
+					System.out.println("수정실패");
+				};
+			
 				break;
 			case 3:
-				while(true) {
-				try {
-					remove();
-//					int cnt = 0;
-//					if(cnt == 0) {
-//						throw new Exception();
-//					}
-					break;
-				}catch(NumberFormatException e) {
-					System.out.println("사원번호를 올바르게 기입하세요");
-				} 
-//				catch (Exception e) {
-//					System.err.println("강제발생");
-//				}
-			}
+				while (true) {
+					try {
+						remove();
+						break;
+					} catch (NumberFormatException e) {
+						System.out.println("사원번호를 올바르게 기입하세요");
+					}
+				}
 				break;
 			case 4:
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -110,9 +105,9 @@ public class MainExe {
 				empSal.setEmpName(eName);
 				List<Employee> emp = dao.search(empSal);
 				for (Employee emps : emp) {
-						System.out.println("이름: " + emps.getEmpName() + " 사원번호: " + emps.getEmpNo() + " 전화번호: "
-								+ emps.getTelNo() + " 입사일자: " + sdf.format(emps.getHireDate()) + " 급여: "
-								+ emps.getSalary());
+					System.out.println(
+							"이름: " + emps.getEmpName() + " 사원번호: " + emps.getEmpNo() + " 전화번호: " + emps.getTelNo()
+									+ " 입사일자: " + sdf.format(emps.getHireDate()) + " 급여: " + emps.getSalary());
 				}
 				break;
 			case 9:
@@ -126,14 +121,15 @@ public class MainExe {
 		System.out.println("end of prog");
 	}// end of main.
 
-	static void remove() throws NumberFormatException{
-	
-		 System.out.println("사원번호를 입력하세요");
-	 		int empNo = Integer.parseInt(scn.nextLine());
-	 		if(dao.removeEmp(empNo)) {
-	 			System.out.println("삭제완료");
-	 		}else{
-	 			System.out.println("찾는 사원번호가 없습니다.");
-	 		};
-	 }// end of remove
+	static void remove() throws NumberFormatException {
+
+		System.out.println("사원번호를 입력하세요");
+		int empNo = Integer.parseInt(scn.nextLine());
+		if (dao.removeEmp(empNo)) {
+			System.out.println("삭제완료");
+		} else {
+			System.out.println("찾는 사원번호가 없습니다.");
+		}
+		;
+	}// end of remove
 }// end of class.
