@@ -26,8 +26,8 @@ public class BoardDAO extends DAO{
 				+ "from tbl_board";
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			stmt = getConnect().prepareStatement(qry);
-			rs = stmt.executeQuery(qry);
+			psmt = getConnect().prepareStatement(qry);
+			rs = psmt.executeQuery();
 			// 조회결과 저장
 			while (rs.next()) {
 				BoardVO board = new BoardVO();
