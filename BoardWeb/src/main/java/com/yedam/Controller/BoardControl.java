@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.dao.BoardDAO;
 import com.yedam.vo.BoardVO;
 
+
+
 public class BoardControl implements Control {
 
 	@Override

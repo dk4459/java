@@ -6,8 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.yedam.dao.BoardDAO;
-import com.yedam.vo.BoardVO;
+
+
+
 
 public class MainControl implements Control {
 

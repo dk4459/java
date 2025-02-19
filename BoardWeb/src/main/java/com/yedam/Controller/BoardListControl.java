@@ -12,6 +12,7 @@ import com.yedam.dao.EmpDAO;
 import com.yedam.vo.BoardVO;
 import com.yedam.vo.Employee;
 
+
 public class BoardListControl implements Control {
 
 	@Override
