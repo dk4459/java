@@ -12,8 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.Controller.AddBoardControl;
+import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
 import com.yedam.Controller.Control;
+import com.yedam.Controller.MainControl;
+import com.yedam.Controller.ModifyBoardControl;
+import com.yedam.Controller.ModifyFormControl;
+import com.yedam.Controller.AddFormControl;
+
 
 /*
  * MVC 패턴에서의 Control역활.
@@ -31,8 +37,13 @@ public class FrontController extends HttpServlet{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 //		map.put("url", "servlet"); // addStudent.do 요청이 들어오면 AddStudentServlet
+		map.put("/main.do", new MainControl());
 		map.put("/boardList.do", new BoardListControl());
+		map.put("/board.do", new BoardControl());
+		map.put("/addForm.do",new AddFormControl());
 		map.put("/addBoard.do", new AddBoardControl());
+		map.put("/modifyForm.do", new ModifyFormControl());
+		map.put("/modifyBoard.do", new ModifyBoardControl());
 	}
 	
 	@Override
