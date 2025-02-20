@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
@@ -19,7 +20,27 @@ public class DAO {
 	PreparedStatement psmt; // 파라메타값을 쉽게 사용하기위해 사용.
 	ResultSet rs; // 쿼리결과를 담아두기 위한 set
 	Connection conn = null;
-	
+			
+			//세션해제.
+			void disConnect() {
+					try {
+						if(conn != null) {
+						conn.close();
+						}if(rs != null) {
+						  conn.close();
+						}if(psmt != null) {
+							psmt.close();
+						}if(stmt != null) {
+							stmt.close();
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+				}
+			}
+			
+			//오라클 접속 세션연결
 			Connection getConnect() {
 				String url = "jdbc:oracle:thin:@localhost:1521:xe"; // 오라클 DB의 접속정보.
 				String user = "hr";

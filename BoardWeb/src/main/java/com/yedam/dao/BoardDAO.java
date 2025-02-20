@@ -14,13 +14,19 @@ import com.yedam.vo.BoardVO;
 public class BoardDAO extends DAO {
 
 	// 조회(삭제)
-	public List<BoardVO> selectBoard() {
+	public List<BoardVO> selectBoard(int page) {
 		List<BoardVO> boardlist = new ArrayList<>();
-		String qry = "select board_no, " + "          title, " + "          content, " + "          writer, "
-				+ "          write_date, " + "          view_cnt " + "from tbl_board " + "ORDER BY board_no";
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String qry = "SELECT tbl_b.*\r\n" 
+				+ "    FROM (SELECT rownum rn, tbl_a.*\r\n" 
+				+ "             FROM (SELECT board_no, title, content, writer, write_date, view_cnt \r\n" //
+				+ "                   FROM tbl_board\r\n"
+				+ "                   ORDER BY board_no DESC) tbl_a) tbl_b\r\n" //
+				+ "WHERE tbl_b.rn >= (? -1)*5+1 \r\n" 
+				+ "AND tbl_b.rn<= ? * 5";
 		try {
 			psmt = getConnect().prepareStatement(qry);
+			psmt.setInt(1, page);
+			psmt.setInt(2, page);
 			rs = psmt.executeQuery();
 			// 조회결과 저장
 			while (rs.next()) {
@@ -36,6 +42,8 @@ public class BoardDAO extends DAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return boardlist;
 	}
@@ -62,6 +70,8 @@ public class BoardDAO extends DAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return null;
 	}
@@ -79,6 +89,8 @@ public class BoardDAO extends DAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return false;
 	}
@@ -98,6 +110,8 @@ public class BoardDAO extends DAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return false;
 	}
@@ -116,13 +130,47 @@ public class BoardDAO extends DAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return false;
 	}
 
 	// 삭제
 	public boolean deleteBoard(int boardNo) {
-
+		String query = "DELETE FROM tbl_board "
+					  + "WHERE board_no = ? ";
+	
+		try {
+			psmt = getConnect().prepareStatement(query);
+			psmt.setInt(1, boardNo);
+			int r = psmt.executeUpdate();
+			if(r >0) {
+				return true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally{
+			disConnect();
+		}
 		return false;
+	}
+	//페이지 총 갯수 찾기
+	public int totalCnt() {
+		String query = "SELECT COUNT(1) cnt "
+					  + "FROM tbl_board";
+		try {
+			psmt = getConnect().prepareStatement(query);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally{
+			disConnect();
+		}
+		return 0;
 	}
 }

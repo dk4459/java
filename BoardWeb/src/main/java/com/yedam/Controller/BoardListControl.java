@@ -7,10 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.PageVO;
 import com.yedam.dao.BoardDAO;
-import com.yedam.dao.EmpDAO;
 import com.yedam.vo.BoardVO;
-import com.yedam.vo.Employee;
 
 
 public class BoardListControl implements Control {
@@ -20,9 +19,15 @@ public class BoardListControl implements Control {
 		String name = "홍길동";
 		req.setAttribute("msg", name);
 		BoardDAO edao = new BoardDAO();
-		List<BoardVO> list = edao.selectBoard();
+		String page = req.getParameter("page");
+		page = page == null?"1":page;
+		List<BoardVO> list = edao.selectBoard(Integer.parseInt(page));
 		
 		req.setAttribute("list", list);
+		//페이징
+		int totalCnt = edao.totalCnt();
+		PageVO paging = new PageVO(Integer.parseInt(page),totalCnt);
+		req.setAttribute("paging", paging);
 		
 		// 요청재지정(url:boardList.do (boardList.jsp))
 		// forward 페이지 요청이 들어오면 다른페이지로 요청

@@ -14,7 +14,8 @@
         </tr>
         <tr>
             <th>작성자</th>
-            <td><input class="form-control w-25"type="text" name="writer"></td>
+            <% String logId = (String) session.getAttribute("loginId"); %>
+            <td><input class="form-control w-25 disabled" type="text" name="writer"   value="<%=logId%>" readonly></td>
         </tr>
         <tr>
         	

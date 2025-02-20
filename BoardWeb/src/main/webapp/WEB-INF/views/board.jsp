@@ -9,10 +9,12 @@
 		}
 	</style>
 </head>
-<h3 align ="center" class="mt-5">상세페이지</h3>
 	<%
 	BoardVO list = (BoardVO) request.getAttribute("board");
+	String msg = (String) request.getAttribute("msg");
+	String logId = (String) session.getAttribute("loginId");
 	%>
+<h3 align ="center" class="mt-5">상세페이지</h3>
 <form action="modifyForm.do">
 <input type="hidden" name="boardNo" value="<%= list.getBoardNo() %>">
 <table class="table table-striped w-75 mt-5" align="center">
@@ -22,7 +24,7 @@
 	  <%= list.getTitle() %>
 	  </td>
 	  <th>작성자:</th>
-	  <td>
+	  <td id='writer'>
 	  <%= list.getWriter() %>
 	  </td>
 	  <th>조회수:</th>
@@ -46,6 +48,27 @@
 		  <button class="btn btn-danger" type="button">삭제</button>
 		</td>
 	</tr>
+	<tr>
+		  <% if(msg != null){ %>
+		<td colspan="9" align = "center">
+			  <span style = "color:red;"><%=msg %></span>
+		</td>
+		  <% } %>
+	</tr>
 </table>
 </form>
+<script>
+	let logId = "<%=logId%>";
+	document.querySelector('button.btn-danger')
+	.addEventListener('click',function(e){
+		let writer = document.querySelector('#writer').textContent
+		let bno = document.querySelector('input[name="boardNo"]').value;
+		console.log(writer,logId)
+		if(writer.trim() == logId.trim()){
+		location.href = "deleteControl.do?boardNo="+bno;
+		}else{
+			alert('권한을 확인하세요');
+		}
+	});
+</script>
 <jsp:include page="includes/footer.jsp"></jsp:include>

@@ -29,8 +29,9 @@ public class AddBoardControl implements Control {
 		
 		BoardDAO brd = new BoardDAO();
 		if(brd.insertBoard(bvo)) {
-			//forward vs. redirect 
-			resp.sendRedirect("boardList.do");;
+			//forward             vs  redirect 
+			//파라미터값 같이 전달     vs  바로전달
+			resp.sendRedirect("boardList.do");
 		}else{
 			System.out.println("실패");
 		};

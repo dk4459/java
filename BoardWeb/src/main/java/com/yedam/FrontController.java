@@ -15,6 +15,9 @@ import com.yedam.Controller.AddBoardControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
 import com.yedam.Controller.Control;
+import com.yedam.Controller.DeleteBoardControl;
+import com.yedam.Controller.LogOutControl;
+import com.yedam.Controller.LoginControl;
 import com.yedam.Controller.MainControl;
 import com.yedam.Controller.ModifyBoardControl;
 import com.yedam.Controller.ModifyFormControl;
@@ -44,11 +47,16 @@ public class FrontController extends HttpServlet{
 		map.put("/addBoard.do", new AddBoardControl());
 		map.put("/modifyForm.do", new ModifyFormControl());
 		map.put("/modifyBoard.do", new ModifyBoardControl());
+		map.put("/deleteControl.do", new DeleteBoardControl());
+		
+		//로그인
+		map.put("/loginForm.do", new LoginControl());
+		map.put("/login.do", new LoginControl());
+		map.put("/logOut.do", new LogOutControl());
 	}
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("front control");
 		//  http://localhost:8080/BoardWeb/addStudent.do = url
 		//  /BoardWeb/addStudent.do => uri
 		String uri = req.getRequestURI(); // "/BoardWeb/addStudent.do"

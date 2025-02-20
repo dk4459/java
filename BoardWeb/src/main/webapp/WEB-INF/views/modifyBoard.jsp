@@ -33,6 +33,7 @@ BoardVO list = (BoardVO) request.getAttribute("board");
 		<tr>
 		<td colspan ="9" align="center">
 		<button type="submit" class="btn btn-primary" >수정</button>
+		<button type="reset" class="btn btn-danger" >취소</button>
 		</td>
 		</tr>
 	</table>
