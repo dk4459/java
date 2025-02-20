@@ -22,7 +22,7 @@ public class DAO {
 	Connection conn = null;
 			
 			//세션해제.
-			void disConnect() {
+			public void disConnect() {
 					try {
 						if(conn != null) {
 						conn.close();
@@ -41,7 +41,7 @@ public class DAO {
 			}
 			
 			//오라클 접속 세션연결
-			Connection getConnect() {
+			public Connection getConnect() {
 				String url = "jdbc:oracle:thin:@localhost:1521:xe"; // 오라클 DB의 접속정보.
 				String user = "hr";
 				String password = "hr";
