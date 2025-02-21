@@ -14,11 +14,13 @@ public class DeleteBoardControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int bno = Integer.parseInt(req.getParameter("boardNo"));
-		
+		String searchCondition = req.getParameter("searchCondition");
+		String keyword = req.getParameter("keyword");
+		String page = req.getParameter("page");
 		BoardDAO bdao = new BoardDAO();
 		
 		if(bdao.deleteBoard(bno)) {
-			resp.sendRedirect("boardList.do");
+			resp.sendRedirect("boardList.do?page="+page+"&searchCondition="+searchCondition+"&keyword="+keyword);
 		};
 	}
 

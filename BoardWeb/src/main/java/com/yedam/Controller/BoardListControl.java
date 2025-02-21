@@ -10,24 +10,34 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.PageVO;
 import com.yedam.dao.BoardDAO;
 import com.yedam.vo.BoardVO;
+import com.yedam.vo.SearchVO;
 
 
 public class BoardListControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String name = "홍길동";
-		req.setAttribute("msg", name);
+		
 		BoardDAO edao = new BoardDAO();
 		String page = req.getParameter("page");
 		page = page == null?"1":page;
-		List<BoardVO> list = edao.selectBoard(Integer.parseInt(page));
+		
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		sc = sc ==null?"":sc;  
+		kw = kw ==null?"":kw;  
+		SearchVO svo = new SearchVO(Integer.parseInt(page),sc,kw);
+		
+		List<BoardVO> list = edao.selectBoard(svo);
 		
 		req.setAttribute("list", list);
 		//페이징
-		int totalCnt = edao.totalCnt();
+		int totalCnt = edao.totalCnt(svo);
 		PageVO paging = new PageVO(Integer.parseInt(page),totalCnt);
 		req.setAttribute("paging", paging);
+		// searchCondition, keyword 전달
+		req.setAttribute("searchCondition", sc);
+		req.setAttribute("keyword", kw);
 		
 		// 요청재지정(url:boardList.do (boardList.jsp))
 		// forward 페이지 요청이 들어오면 다른페이지로 요청

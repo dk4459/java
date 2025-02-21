@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yedam.vo.BoardVO;
+import com.yedam.vo.SearchVO;
 
 /*
  * 추가, 수정, 삭제, 조회
@@ -14,19 +15,45 @@ import com.yedam.vo.BoardVO;
 public class BoardDAO extends DAO {
 
 	// 조회(삭제)
-	public List<BoardVO> selectBoard(int page) {
+	public List<BoardVO> selectBoard(SearchVO svo) {
+		
 		List<BoardVO> boardlist = new ArrayList<>();
+		System.out.println("searchCondition"+svo.getSearchCondition());
 		String qry = "SELECT tbl_b.*\r\n" 
 				+ "    FROM (SELECT rownum rn, tbl_a.*\r\n" 
 				+ "             FROM (SELECT board_no, title, content, writer, write_date, view_cnt \r\n" //
-				+ "                   FROM tbl_board\r\n"
-				+ "                   ORDER BY board_no DESC) tbl_a) tbl_b\r\n" //
+				+ "                   FROM tbl_board\r\n";
+		if(svo.getSearchCondition().equals("T")) {
+			qry += "                  WHERE title LIKE '%' || ? || '%' ";
+		}else if (svo.getSearchCondition().equals("W")) {
+			qry += "                  WHERE writer LIKE '%' || ? || '%' ";
+		}else if (svo.getSearchCondition().equals("TW")) {
+			qry += "                  WHERE writer LIKE '%' || ? || '%' "
+									 	+ "OR title LIKE '%' || ? || '%'";
+		} 
+			qry += "                   ORDER BY board_no DESC) tbl_a) tbl_b\r\n" //
 				+ "WHERE tbl_b.rn >= (? -1)*5+1 \r\n" 
-				+ "AND tbl_b.rn<= ? * 5";
+				+ "AND tbl_b.rn<= ? * 5 ";
+			
+		System.out.println(qry);
 		try {
 			psmt = getConnect().prepareStatement(qry);
-			psmt.setInt(1, page);
-			psmt.setInt(2, page);
+		
+			if(svo.getSearchCondition().equals("TW")) {
+				psmt.setString(1, svo.getKeyword());
+				psmt.setString(2, svo.getKeyword());
+				psmt.setInt(3, svo.getPage());
+				psmt.setInt(4, svo.getPage());
+			}
+			else if(svo.getSearchCondition()!="") {
+				psmt.setString(1, svo.getKeyword());
+				psmt.setInt(2, svo.getPage());
+				psmt.setInt(3, svo.getPage());
+			}else {
+			    psmt.setInt(1, svo.getPage());
+				psmt.setInt(2, svo.getPage());
+			}
+			
 			rs = psmt.executeQuery();
 			// 조회결과 저장
 			while (rs.next()) {
@@ -51,7 +78,7 @@ public class BoardDAO extends DAO {
 	// 상세조회
 	public BoardVO detailList(int boardNo) {
 		String qry = "select board_no, " + "          title, " + "          content, " + "          writer, "
-				+ "          write_date, " + "          view_cnt " + "from tbl_board " + " WHERE board_no = ?";
+				+ "          write_date, img, " + "          view_cnt " + "from tbl_board " + " WHERE board_no = ?";
 		try {
 			psmt = getConnect().prepareStatement(qry);
 			psmt.setInt(1, boardNo);
@@ -64,6 +91,7 @@ public class BoardDAO extends DAO {
 				board.setWriter(rs.getString("writer"));
 				board.setWriterDate(rs.getDate("write_date"));
 				board.setViewCnt(rs.getInt("view_cnt"));
+				board.setImg(rs.getString("img"));
 				return board;
 
 			}
@@ -97,12 +125,14 @@ public class BoardDAO extends DAO {
 
 	// 추가
 	public boolean insertBoard(BoardVO board) {
-		String query = "INSERT INTO tbl_board(board_no, title, content, writer) " + "VALUES (board_seq.nextval,?,?,?)";
+		String query = "INSERT INTO tbl_board(board_no, title, content, writer, img) " 
+						+ "VALUES (board_seq.nextval,?,?,?,?)";
 		try {
 			psmt = getConnect().prepareStatement(query);
 			psmt.setString(1, board.getTitle());
 			psmt.setString(2, board.getContent());
 			psmt.setString(3, board.getWriter());
+			psmt.setString(4, board.getImg());
 			int r = psmt.executeUpdate();
 			if (r > 0) {
 				return true;
@@ -156,11 +186,28 @@ public class BoardDAO extends DAO {
 		return false;
 	}
 	//페이지 총 갯수 찾기
-	public int totalCnt() {
+	public int totalCnt(SearchVO svo) {
 		String query = "SELECT COUNT(1) cnt "
-					  + "FROM tbl_board";
+					  + "FROM tbl_board ";
+		if(svo.getSearchCondition()!="") {
+			if(svo.getSearchCondition().equals("T")) {
+				query += " WHERE TITLE LIKE '%' || ? || '%'";
+			}else if(svo.getSearchCondition().equals("W")) {
+				query += " WHERE WRITER LIKE '%' || ? || '%'";
+			}else if(svo.getSearchCondition().equals("TW")) {
+				query += " WHERE TITLE LIKE '%' || ? || '%'"
+						+ "  OR WRITER LIKE '%' || ? || '%'";
+			}
+		}
 		try {
 			psmt = getConnect().prepareStatement(query);
+			if(svo.getSearchCondition()!= "") {
+				psmt.setString(1, svo.getKeyword());
+			}
+			if(svo.getSearchCondition().equals("TW")) {
+				psmt.setString(1, svo.getKeyword());
+				psmt.setString(2, svo.getKeyword());
+			}
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt("cnt");

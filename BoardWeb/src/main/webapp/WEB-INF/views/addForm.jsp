@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="includes/header.jsp"></jsp:include>
 <h3 class="mb-5 mt-5" align="center">글등록화면</h3>
-<form action = "addBoard.do">
+<form action = "addBoard.do" method="post" enctype="multipart/form-data">
 	<table class ="table table-dark table-striped w-75 h-75" align="center">
         <tr>
             <th>제목</th>
@@ -14,8 +14,11 @@
         </tr>
         <tr>
             <th>작성자</th>
-            <% String logId = (String) session.getAttribute("loginId"); %>
-            <td><input class="form-control w-25 disabled" type="text" name="writer"   value="<%=logId%>" readonly></td>
+            <td><input class="form-control w-25 disabled" type="text" name="writer"   value="${loginId }" readonly></td>
+        </tr>
+        <tr>
+            <th>이미지</th>
+            <td><input class="form-control " type="file" name="img"></td>
         </tr>
         <tr>
         	

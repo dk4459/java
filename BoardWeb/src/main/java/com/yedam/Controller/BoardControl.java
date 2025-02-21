@@ -17,16 +17,20 @@ public class BoardControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		int boardNo = Integer.parseInt(req.getParameter("boardNo"));
-		
+		String searchConditon = req.getParameter("searchCondition");
+		String keyword = req.getParameter("keyword");
+		String page = req.getParameter("page");
 		BoardDAO bDAO = new BoardDAO();
 		
 		//조회수증가
 		bDAO.viewCnt(boardNo);
 		
 		BoardVO brd = bDAO.detailList(boardNo);
-		
+		System.out.println("이미지"+brd.getImg());
 		req.setAttribute("board", brd);
-		
+		req.setAttribute("search", searchConditon);
+		req.setAttribute("keyword", keyword);
+		req.setAttribute("page", page);
 		req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
 	}
 
