@@ -28,7 +28,7 @@ public class ModifyBoardControl implements Control {
 		
 		if(bDao.updateBoard(bvo)) {
 			req.setAttribute("board", bvo);
-			req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
+			req.getRequestDispatcher("/board/board.tiles").forward(req, resp);
 		}else {
 			System.out.println("실패");
 		}

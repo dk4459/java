@@ -2,9 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<jsp:include page="includes/header.jsp"></jsp:include>
-
+<head>
+	<style>
+		form{
+			width:1000px
+		}
+	</style>
+</head>
 <h3 align="center" class="mb-5 mt-5">게시글 목록</h3>
 <div class="d-flex justify-content-center mb-5">
 <form action="boardList.do">
@@ -87,9 +91,3 @@
 	</ul>
 </nav>
 </div>
-<script>
-
-
-
-</script>
-<jsp:include page="includes/footer.jsp"></jsp:include>

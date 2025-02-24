@@ -3,6 +3,21 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
+	<!--타일즈 등록시 리스터 (가장 첫줄에 있어야 함) -->
+	<listener>
+		<listener-class>org.apache.tiles.extras.complete.CompleteAutoloadTilesListener</listener-class>
+	</listener>
+	<!-- 타일즈 서블릿 -->
+	<servlet>
+		<servlet-name>Tiles Dispatch Servlet</servlet-name>
+		<servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Tiles Dispatch Servlet</servlet-name>
+		<url-pattern>*.tiles</url-pattern>
+	</servlet-mapping>
+	
+	
 	<display-name>BoardWeb</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

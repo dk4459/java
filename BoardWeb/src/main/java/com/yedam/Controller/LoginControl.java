@@ -19,7 +19,7 @@ public class LoginControl implements Control {
 	
 		if(req.getMethod().equals("GET")) {
 			//1.로그인화면
-			req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 			//POST일떄 반응
 		}else if(req.getMethod().equals("POST")) {
 			String id = req.getParameter("uname");
