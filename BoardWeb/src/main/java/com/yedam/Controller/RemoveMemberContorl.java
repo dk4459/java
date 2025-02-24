@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yedam.dao.MemberDAO;
+
 public class RemoveMemberContorl implements Control {
 
 	@Override
@@ -13,8 +15,10 @@ public class RemoveMemberContorl implements Control {
 		
 		String id = req.getParameter("mid");
 		
+		MemberDAO mdao = new MemberDAO();
+		
 		// memberDAO에 삭제. boolean
-		boolean isOk = true;
+		boolean isOk = mdao.deleteMember(id);
 		
 		if(isOk) {
 			//{"retCode" : "OK"}

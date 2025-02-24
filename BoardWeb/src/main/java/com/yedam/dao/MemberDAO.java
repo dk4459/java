@@ -69,10 +69,19 @@ public class MemberDAO extends DAO{
 		return members;
 	}
 	
-	public boolean deleteMember() {
+	public boolean deleteMember(String id) {
 		String sql = "DELETE FROM tbl_member "
 				+ " WHERE member_id = ?";
-		
+		try {
+			psmt=getConnect().prepareStatement(sql);
+			psmt.setString(1, id);
+			int r = psmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 }

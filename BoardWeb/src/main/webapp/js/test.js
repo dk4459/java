@@ -10,7 +10,7 @@ function deleteRow(id){
 		return result.json();
 	}).then((result) => {
 		if(result.retCode="OK"){
-			this.parentElement.parentElement.remove();
+			document.querySelector(`tr[data-id="${id}"]`).remove();
 		}else if(result.retCode="NG"){
 			alert('삭제실패')
 		}else{
@@ -40,7 +40,7 @@ fetch('testData.do')
   document.querySelector('input[name="age"]').value = result.passwd;
   let str = ''
   for(item of memberAry){
-	str += `<tr>
+	str += `<tr data-id="${item.memberId}">
 			       <td>${item.memberId}</td>
 			       <td>${item.passwd}</td>
 			       <td>${item.memberName}</td>
