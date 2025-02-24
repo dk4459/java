@@ -29,10 +29,14 @@ public class LoginControl implements Control {
 			MemberVO mvo = mdao.login(id, pw);
 			HttpSession session = req.getSession();
 			session.setAttribute("loginId",id); // attribute활용.
+			if(mvo.getReponsibility().equals("Admin")) {
+				resp.sendRedirect("memberList.do");
+			}else {
 			resp.sendRedirect("main.do");
+			}
 			
 			if(mvo != null) {
-				System.out.println("환영합니다.   "+ mvo.getMemberName());
+				System.out.println("환영합니다."+ mvo.getMemberName());
 			}else {
 				System.out.println("id, pw 확인.");
 			}

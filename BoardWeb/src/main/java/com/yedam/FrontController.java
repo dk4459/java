@@ -15,6 +15,7 @@ import com.yedam.Controller.AddBoardControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
 import com.yedam.Controller.Control;
+import com.yedam.Controller.DataControl;
 import com.yedam.Controller.DeleteBoardControl;
 import com.yedam.Controller.LogOutControl;
 import com.yedam.Controller.LoginControl;
@@ -22,7 +23,9 @@ import com.yedam.Controller.MainControl;
 import com.yedam.Controller.MemberListControl;
 import com.yedam.Controller.ModifyBoardControl;
 import com.yedam.Controller.ModifyFormControl;
+import com.yedam.Controller.RemoveMemberContorl;
 import com.yedam.Controller.AddFormControl;
+import com.yedam.Controller.AjaxControl;
 
 
 /*
@@ -57,6 +60,9 @@ public class FrontController extends HttpServlet{
 		
 		//어드민 전용
 		map.put("/memberList.do", new MemberListControl());
+		map.put("/testAjax.do", new AjaxControl());
+		map.put("/testData.do", new DataControl());
+		map.put("/removeMember.do", new RemoveMemberContorl());
 	}
 	
 	@Override

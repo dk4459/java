@@ -34,7 +34,7 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="login.do">Login</a>
                                             <a class="nav-link" href="register.html">Register</a>
                                             <a class="nav-link" href="password.html">Forgot Password</a>
                                         </nav>
@@ -48,6 +48,17 @@
                                             <a class="nav-link" href="401.html">401 Page</a>
                                             <a class="nav-link" href="404.html">404 Page</a>
                                             <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                    <!-- 아작스페이지 -->
+                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#ajaxPage" aria-expanded="false" aria-controls="ajaxPage">
+                                        아작스
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="ajaxPage" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="testAjax.do">Ajax페이지.</a>
+                                          
                                         </nav>
                                     </div>
                                 </nav>
