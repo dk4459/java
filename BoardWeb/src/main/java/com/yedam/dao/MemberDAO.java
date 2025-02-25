@@ -68,7 +68,7 @@ public class MemberDAO extends DAO{
 	}
 		return members;
 	}
-	
+	//삭제
 	public boolean deleteMember(String id) {
 		String sql = "DELETE FROM tbl_member "
 				+ " WHERE member_id = ?";
@@ -84,4 +84,23 @@ public class MemberDAO extends DAO{
 		}
 		return false;
 	}
+	//등록
+	public boolean addMember(MemberVO member) {
+		String sql = "INSERT INTO tbl_member(member_id, passwd, member_name) "
+					+ "VALUES (?,?,?)";
+		try {
+			psmt= getConnect().prepareStatement(sql);
+			psmt.setString(1, member.getMemberId());
+			psmt.setString(2, member.getPasswd());
+			psmt.setString(3, member.getMemberName());
+			int r = psmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }

@@ -24,7 +24,11 @@ import com.yedam.Controller.MemberListControl;
 import com.yedam.Controller.ModifyBoardControl;
 import com.yedam.Controller.ModifyFormControl;
 import com.yedam.Controller.RemoveMemberContorl;
+import com.yedam.Controller.ReplyAddControl;
+import com.yedam.Controller.ReplyFormControl;
+import com.yedam.Controller.ReplyRemoveControl;
 import com.yedam.Controller.AddFormControl;
+import com.yedam.Controller.AddMemberControl;
 import com.yedam.Controller.AjaxControl;
 
 
@@ -63,10 +67,17 @@ public class FrontController extends HttpServlet{
 		map.put("/testAjax.do", new AjaxControl());
 		map.put("/testData.do", new DataControl());
 		map.put("/removeMember.do", new RemoveMemberContorl());
+		map.put("/addMember.do", new AddMemberControl());
+		
+		//댓글관련
+		map.put("/replyList.do", new ReplyFormControl());
+		map.put("/addReply.do", new ReplyAddControl());
+		map.put("/replyRemove.do", new ReplyRemoveControl());
+		
 	}
 	
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//  http://localhost:8080/BoardWeb/addStudent.do = url
 		//  /BoardWeb/addStudent.do => uri
 		String uri = req.getRequestURI(); // "/BoardWeb/addStudent.do"

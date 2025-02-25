@@ -17,7 +17,6 @@
     <put-attribute name="footer" value="/WEB-INF/admin/footer.jsp" />
   </definition>
   
-  
   <definition name = "WILDCARD:board/*" extends="myapp.user">
   	<put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp" />
   </definition>
@@ -29,4 +28,5 @@
   <definition name = "WILDCARD:*/*" extends="myapp.user">
   	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
   </definition>
+  
 </tiles-definitions>

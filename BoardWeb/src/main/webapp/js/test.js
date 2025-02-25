@@ -17,18 +17,10 @@ function deleteRow(id){
 			alert('알수없는 코드')
 		}
 	})
-}//end of deleteRow.
-
-console.log('테스트');
-
-let json = `{"name":"홍길동","age":"20"}`;
-let obj = JSON.parse(json);
-console.log(obj.name, obj["age"])
-document.querySelector('input[name="name"]').value = obj.name;
-document.querySelector('input[name="age"]').value = obj.age;
+} //end of deleteRow.
 
 // 서버(서블릿) -> jsp페이지
-console.log('1')
+
 // Asynchronous javascript and xml <- AJAX (비동기 자바스크립트와 XML)
 fetch('testData.do')
 .then(function(result){
@@ -36,8 +28,6 @@ fetch('testData.do')
 })
 .then(function(result){
   const memberAry = result;
-  document.querySelector('input[name="name"]').value = result.memberId;
-  document.querySelector('input[name="age"]').value = result.passwd;
   let str = ''
   for(item of memberAry){
 	str += `<tr data-id="${item.memberId}">
@@ -49,7 +39,32 @@ fetch('testData.do')
 			    </tr>
 	       `
   }
-  document.querySelector('tbody').innerHTML=str;
+  document.querySelector('#list').innerHTML=str;
+})
+
+document.querySelector('#addMember').addEventListener('click',function(e){
+	let mid = document.querySelector('input[name="mid"').value;
+	let mpw = document.querySelector('input[name="mpw"').value;
+	let mname = document.querySelector('input[name="mname"').value;
+
+	fetch('addMember.do?mid='+mid+'&mpw='+mpw+'&mname='+mname)
+	.then(function(result){
+		return result.json();
+	}).then(function(result){
+		if(result.retCode="OK"){
+			document.querySelector('#list').innerHTML+=`<tr data-id="${mid}">
+						       					<td>${mid}</td>
+						                        <td>${mpw}</td>
+						                        <td>${mname}</td>
+						                        <td>User</td>
+							                    <td><button onclick="deleteRow('${mid}')" class="btn btn-danger">삭제</button></td>
+						                        </tr>`;
+		}else if(result.retCode="NG"){
+			alert('등록실패')
+		}else{
+			alert('알수없는 코드')
+		}
+	})
 })
 
 

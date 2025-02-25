@@ -65,8 +65,38 @@
 		</c:if>
 </table>
 </form>
+<style>
+	.reply .content ul {
+		list-style-type:none;
+	}
+	.reply .content span {
+		display: inline-block
+	}
+	li{
+	  margin-bottom:15px;
+	}
+</style>
+<div class="container reply">
+ <!-- 댓글등록 -->
+ <div class="header">
+   <input type="text" id="reply" class="col-sm-9">
+   <button id="addReply" class="btn btn-primary">댓글등록</button>
+ </div>
+ <!-- 댓글목록 -->
+ <div class="content">
+ <ul>
+ 	<li>
+ 		<span class="col-sm-2">글번호</span>
+ 		<span class="col-sm-5">글내용</span>
+ 		<span class="col-sm-2">작성자</span>
+ 		<span class="col-sm-2">삭제</span>
+ 	</li>
+ </ul>
+ </div>
+</div>
 <script>
 	let logId = '${loginId}';
+	let bno = '${board.boardNo}'
 	document.querySelector('button.btn-danger')
 	.addEventListener('click',function(e){
 		let writer = document.querySelector('#writer').textContent
@@ -77,5 +107,7 @@
 		}else{
 			alert('권한을 확인하세요');
 		}
-	});
+	});	
 </script>
+<script src="js/replyService.js"></script>
+<script src="js/reply.js"></script> 
