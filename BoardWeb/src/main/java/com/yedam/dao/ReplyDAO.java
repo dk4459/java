@@ -8,7 +8,14 @@ import com.yedam.vo.ReplyVO;
 
 //댓글목록,등록,삭제,상세조회
 public class ReplyDAO extends DAO{
-	
+	//윈도우함수
+	/*
+	 *  SELECT reply_no, reply,replyer,board_no ,RN
+ 		FROM (SELECT reply_no, reply,replyer,board_no ,ROW_NUMBER() OVER (ORDER BY reply_no) RN 
+        	  FROM tbl_reply
+        	  WHERE board_no=1002)
+		WHERE RN BETWEEN 6 AND 10;
+	 * */
 	//목록
 	public List<ReplyVO> replyList(int boardNo){
 		List<ReplyVO> rvo = new ArrayList<ReplyVO>();

@@ -31,19 +31,14 @@ public class ReplyAddControl implements Control {
 		
 		Map<String,Object> result = new HashMap<>();
 		
-		
 		if(rdao.insertReply(rvo)) {
-//			resp.getWriter().print("{\"retCode\" : \"OK\"}");
 			result.put("retCode", "OK");
 			result.put("retVal", rvo);
 		}else{
-//			resp.getWriter().print("{\"retCode\" : \"NG\"}");
 			result.put("retCode", "NG");
 		};
-		
 		Gson gson = new GsonBuilder().create();
 		String json = gson.toJson(result);
 		resp.getWriter().print(json);
 	}
-
 }
