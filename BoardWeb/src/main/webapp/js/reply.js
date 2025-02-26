@@ -3,9 +3,14 @@
  */
 //페이징
 let page=1;
-//목록
+
+//목록함수
+function list (){
 svc.replyList({bno,page},
 	function(result){
+	document.querySelectorAll('li[data-id]').forEach(function(item){
+		item.remove();
+	})
 	let resultAry = result;
 	resultAry.forEach(function(reply){
 		let target = document.querySelector('.content>ul')
@@ -13,8 +18,10 @@ svc.replyList({bno,page},
 		
 		})
 	},function(err){console.log(err)});
-
-	
+}
+//댓글목록 함수실행
+list();	
+//
 function makeRep(result ={}){
 			let str = ''
 			str += `<li data-id="${result.replyNo}"><span class="col-sm-2">${result.replyNo}</span>
@@ -63,3 +70,15 @@ function deleteRep(rno){
 			}
 		},function(err){console.log(err)})
 }
+
+//페이징목록의 링크() 이벤트.
+let paging = document.querySelectorAll('div.footer>nav a');
+
+paging.forEach(function(item){
+	item.addEventListener('click',function(e){
+		e.preventDefault();
+		page = e.target.innerHTML
+		list();
+	})
+})
+

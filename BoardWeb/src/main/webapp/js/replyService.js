@@ -24,6 +24,13 @@ const svc = {
 			.then(result=> result.json())	//화살표 함수.
 			.then(successCallback)		    //정상처리시 실행 함수.
 			.catch(errorCallback) 	    	//에러시 실행할 함수
+	   },
+	   //페이징계산
+	   makePaging(bno=1,successCallback,errorCallback){
+		fetch('totalReply.do?bno='+bno)
+		.then(result=> result.json())	//화살표 함수.
+		.then(successCallback)		    //정상처리시 실행 함수.
+		.catch(errorCallback) 	    	//에러시 실행할 함수
 	   }
 }
   

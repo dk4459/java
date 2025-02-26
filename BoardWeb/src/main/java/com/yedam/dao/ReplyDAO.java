@@ -43,10 +43,29 @@ public class ReplyDAO extends DAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return rvo;
 	} 
-	
+	//총페이지
+	public int totalPage(int boardNo) {
+		String sql = "SELECT COUNT(1) cnt "
+					+ "FROM tbl_reply "
+					+ "WHERE board_no= ? ";
+		try {
+			psmt = getConnect().prepareStatement(sql);
+			psmt.setInt(1,boardNo);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	//상세 
 	public ReplyVO selectReply(int replyNo) {
 		String sql = "SELECT reply_no, reply,replyer,board_no"
@@ -67,6 +86,8 @@ public class ReplyDAO extends DAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return null;
 	}
@@ -92,6 +113,8 @@ public class ReplyDAO extends DAO{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return false;
 	}
@@ -108,6 +131,8 @@ public class ReplyDAO extends DAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return false;
 	}

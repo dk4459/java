@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.dao.BoardDAO;
+import com.yedam.dao.ReplyDAO;
 import com.yedam.vo.BoardVO;
 
 
@@ -21,9 +22,10 @@ public class BoardControl implements Control {
 		String keyword = req.getParameter("keyword");
 		String page = req.getParameter("page");
 		BoardDAO bDAO = new BoardDAO();
-		
+		ReplyDAO rDAO = new ReplyDAO();
 		//조회수증가
 		bDAO.viewCnt(boardNo);
+		//댓글 총페이
 		
 		BoardVO brd = bDAO.detailList(boardNo);
 		System.out.println("이미지"+brd.getImg());

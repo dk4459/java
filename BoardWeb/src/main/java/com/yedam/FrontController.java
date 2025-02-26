@@ -25,6 +25,7 @@ import com.yedam.Controller.ModifyBoardControl;
 import com.yedam.Controller.ModifyFormControl;
 import com.yedam.Controller.RemoveMemberContorl;
 import com.yedam.Controller.ReplyAddControl;
+import com.yedam.Controller.ReplyCountControl;
 import com.yedam.Controller.ReplyFormControl;
 import com.yedam.Controller.ReplyRemoveControl;
 import com.yedam.Controller.AddFormControl;
@@ -73,7 +74,7 @@ public class FrontController extends HttpServlet{
 		map.put("/replyList.do", new ReplyFormControl());
 		map.put("/addReply.do", new ReplyAddControl());
 		map.put("/replyRemove.do", new ReplyRemoveControl());
-		
+		map.put("/totalReply.do", new ReplyCountControl());
 	}
 	
 	@Override
