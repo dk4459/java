@@ -17,14 +17,20 @@ public class ReplyDAO extends DAO{
 		WHERE RN BETWEEN 6 AND 10;
 	 * */
 	//목록
-	public List<ReplyVO> replyList(int boardNo){
+	public List<ReplyVO> replyList(int boardNo,int page){
 		List<ReplyVO> rvo = new ArrayList<ReplyVO>();
-		String sql = "SELECT reply_no, reply,replyer,board_no "
-					+"FROM tbl_reply "
-					+"WHERE board_no = ? ";
+		String sql = "SELECT tbl_a.* "
+				     + "FROM (SELECT /*+ INDEX_DESC (r PK_REPLY)*/ "
+				     + "      rownum rn,reply_no,reply,replyer,board_no,reply_date "
+				     + "      FROM tbl_reply r "
+				     + "      WHERE board_no=?) tbl_a "
+				+ "WHERE tbl_a.rn >=(?-1)*5+1 "
+				+ "AND tbl_a.rn <= ? * 5";
 		try {
 			psmt = getConnect().prepareStatement(sql);
 			psmt.setInt(1, boardNo);
+			psmt.setInt(2, page);
+			psmt.setInt(3, page);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				ReplyVO reply = new ReplyVO();

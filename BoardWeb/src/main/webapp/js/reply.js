@@ -1,9 +1,10 @@
 /**
- * 
+ * reply.js
  */
-console.log(svc.showName())
+//페이징
+let page=1;
 //목록
-svc.replyList(bno,
+svc.replyList({bno,page},
 	function(result){
 	let resultAry = result;
 	resultAry.forEach(function(reply){
@@ -22,7 +23,6 @@ function makeRep(result ={}){
 			 		<span class="col-sm-2"><button class="btn btn-danger" onclick="deleteRep(${result.replyNo})">삭제</button></span>
 					</li>`
 			return str;
-			button();
 }
 //댓글 등록 이벤트
 document.querySelector('#addReply').addEventListener('click',function(e){
@@ -44,12 +44,16 @@ document.querySelector('#addReply').addEventListener('click',function(e){
 		}
 	},function(err){console.log(err)});
 });
-//삭제 등록 이벤트
+//댓글 삭제 이벤트
 function deleteRep(rno){
-	
 	if(!confirm("삭제하시겠습니까")){
 		alert('취소합니다.')
-		return;
+	return;
+	}
+	let writer = document.querySelector('li[data-id="'+rno+'"] span:nth-of-type(3)').textContent
+	if(writer!=logId){
+		alert('권한이 없습니다.');
+		return
 	}
 	svc.removeReply(rno,function(result){
 			if(result.retCode =='OK'){

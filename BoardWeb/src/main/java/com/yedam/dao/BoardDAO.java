@@ -32,7 +32,7 @@ public class BoardDAO extends DAO {
 									 	+ "OR title LIKE '%' || ? || '%'";
 		} 
 			qry += "                   ORDER BY board_no DESC) tbl_a) tbl_b\r\n" //
-				+ "WHERE tbl_b.rn >= (? -1)*5+1 \r\n" 
+				+ "WHERE tbl_b.rn >= (?-1)*5+1 \r\n" 
 				+ "AND tbl_b.rn<= ? * 5 ";
 			
 		System.out.println(qry);

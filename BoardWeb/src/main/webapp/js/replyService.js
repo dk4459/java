@@ -2,13 +2,9 @@
  * replyService.js
  */
 const svc = {
-	name: "HONG",
-	showName : function(){
-		return this.name;
-	},
 	//목록 메소드.
-	  replyList: function(bno, successCallback,errorCallback){
-		fetch('replyList.do?bno='+bno)
+	  replyList: function(param = {bno,page}, successCallback,errorCallback){
+		fetch('replyList.do?bno='+param.bno+'&page='+param.page)
 		.then(function(result){
 			return result.json();
 		})
@@ -22,6 +18,7 @@ const svc = {
 		.then(successCallback)		    //정상처리시 실행 함수.
 		.catch(errorCallback) 	    	//에러시 실행할 함수
 	  },
+	  //삭제 메소드
 	   	removeReply(replyNo,successCallback,errorCallback){
 			fetch('replyRemove.do?rno='+replyNo)
 			.then(result=> result.json())	//화살표 함수.

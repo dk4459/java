@@ -93,7 +93,7 @@
  	</li>
  </ul>
  </div>
-</div>
+</div> 
 <script>
 	let logId = '${loginId}';
 	let bno = '${board.boardNo}'
@@ -107,7 +107,8 @@
 		}else{
 			alert('권한을 확인하세요');
 		}
-	});	
+	});
+
 </script>
 <script src="js/replyService.js"></script>
 <script src="js/reply.js"></script> 

@@ -17,12 +17,14 @@ public class ReplyFormControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int bno = Integer.parseInt(req.getParameter("bno"));
+		String bno = req.getParameter("bno");
+		String page = req.getParameter("page");
+		page = page==null?"1":page;
 		resp.setContentType("text/json;charset=utf-8");
 		
 		ReplyDAO rdao = new ReplyDAO();
 	   
-		List<ReplyVO> rvo = rdao.replyList(bno);
+		List<ReplyVO> rvo = rdao.replyList(Integer.parseInt(bno),Integer.parseInt(page));
 		Gson gson = new GsonBuilder().create();
 		
 		String json = gson.toJson(rvo);
