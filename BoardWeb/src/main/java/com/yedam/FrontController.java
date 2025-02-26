@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.Controller.AddBoardControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
+import com.yedam.Controller.CharFormControl;
 import com.yedam.Controller.Control;
 import com.yedam.Controller.DataControl;
 import com.yedam.Controller.DeleteBoardControl;
@@ -75,6 +76,7 @@ public class FrontController extends HttpServlet{
 		map.put("/addReply.do", new ReplyAddControl());
 		map.put("/replyRemove.do", new ReplyRemoveControl());
 		map.put("/totalReply.do", new ReplyCountControl());
+		map.put("/chart.do", new CharFormControl());
 	}
 	
 	@Override

@@ -2,7 +2,9 @@ package com.yedam.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.yedam.vo.ReplyVO;
 
@@ -63,6 +65,8 @@ public class ReplyDAO extends DAO{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			disConnect();
 		}
 		return 0;
 	}
@@ -135,5 +139,32 @@ public class ReplyDAO extends DAO{
 			disConnect();
 		}
 		return false;
+	}
+	
+	//차트
+	public List<Map<String,Object>> chartData(){
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		String sql = "SELECT e.department_id,"
+					+ "       d.department_name,"
+					+ "       count(*) cnt "
+					+ "FROM employees e JOIN departments d "
+					+ "                  ON(e.department_id=d.department_id) "
+					+ "GROUP BY e.department_id, "
+					+ "         d.department_name";
+		try {
+			psmt=getConnect().prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				Map<String,Object> map = new HashMap<>();
+				map.put("dept_name", rs.getString(2));
+				map.put("dept_cnt", rs.getInt(3));
+				list.add(map);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally{
+			disConnect();
+		}
+		return list;
 	}
 }
