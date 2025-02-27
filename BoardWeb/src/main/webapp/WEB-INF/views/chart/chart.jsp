@@ -6,10 +6,11 @@
     <script type="text/javascript">
    	  let charJson = '${list}';
    	  let chartInfo = JSON.parse(charJson)
+   	  console.log(chartInfo)
       let infoAry = [];
       infoAry.push(['부서명','인원'])
       for(info of chartInfo){
-    	  infoAry.push([info.dept_name,info.dept_cnt])
+    	  infoAry.push([info.DEPARTMENT_NAME,info.CNT])
       }
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);

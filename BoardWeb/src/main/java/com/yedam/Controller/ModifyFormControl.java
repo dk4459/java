@@ -7,7 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.yedam.common.DataSource;
 import com.yedam.dao.BoardDAO;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
 
@@ -19,12 +24,14 @@ public class ModifyFormControl implements Control {
 		
 		int boardNo = Integer.parseInt(req.getParameter("boardNo"));
 		
-		BoardDAO bDAO = new BoardDAO();
+		SqlSessionFactory sqlSessionFactory = DataSource.getInstance();
+		SqlSession session = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		
-		BoardVO brd = bDAO.detailList(boardNo);
+		BoardVO brd = mapper.detailList(boardNo);
 		//세션 아이디 VS 글 작성 아이디
-		HttpSession session = req.getSession();
-		String sessionId = (String) session.getAttribute("loginId");
+		HttpSession session1 = req.getSession();
+		String sessionId = (String) session1.getAttribute("loginId");
 		String writeId = brd.getWriter();
 		
 		if(!sessionId.equals(writeId)) {

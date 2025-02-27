@@ -18,7 +18,6 @@ public class BoardDAO extends DAO {
 	public List<BoardVO> selectBoard(SearchVO svo) {
 		
 		List<BoardVO> boardlist = new ArrayList<>();
-		System.out.println("searchCondition"+svo.getSearchCondition());
 		String qry = "SELECT tbl_b.*\r\n" 
 				+ "    FROM (SELECT rownum rn, tbl_a.*\r\n" 
 				+ "             FROM (SELECT board_no, title, content, writer, write_date, view_cnt \r\n" //

@@ -6,9 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.yedam.common.DataSource;
 import com.yedam.dao.BoardDAO;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
 
@@ -43,8 +48,10 @@ public class AddBoardControl implements Control {
 		bvo.setWriter(writer);
 		bvo.setImg(img); //추가한 img컬럼.
 		
-		BoardDAO brd = new BoardDAO();
-		if(brd.insertBoard(bvo)) {
+		SqlSessionFactory sqlSessionFactory = DataSource.getInstance();
+		SqlSession session = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		if(mapper.insertBoard(bvo)>0) {
 			//forward             vs  redirect 
 			//파라미터값 같이 전달     vs  바로전달
 			resp.sendRedirect("boardList.do");

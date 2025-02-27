@@ -20,5 +20,14 @@ public class BoardVO {
 	private int viewCnt;
 	private String img;
 	
+	public BoardVO(int boardNo, String title, String content, String writer) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+	}
+	
+	
 	
 }

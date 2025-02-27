@@ -6,8 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import com.yedam.common.DataSource;
 import com.yedam.dao.BoardDAO;
 import com.yedam.dao.ReplyDAO;
+import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
 
 
@@ -21,13 +26,16 @@ public class BoardControl implements Control {
 		String searchConditon = req.getParameter("searchCondition");
 		String keyword = req.getParameter("keyword");
 		String page = req.getParameter("page");
-		BoardDAO bDAO = new BoardDAO();
+//		BoardDAO bDAO = new BoardDAO();
+		SqlSessionFactory sqlSessionFactory = DataSource.getInstance();
+		SqlSession session = sqlSessionFactory.openSession(true);
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		ReplyDAO rDAO = new ReplyDAO();
 		//조회수증가
-		bDAO.viewCnt(boardNo);
+		mapper.viewCnt(boardNo);
 		//댓글 총페이
 		
-		BoardVO brd = bDAO.detailList(boardNo);
+		BoardVO brd = mapper.detailList(boardNo);
 		System.out.println("이미지"+brd.getImg());
 		req.setAttribute("board", brd);
 		req.setAttribute("search", searchConditon);
