@@ -10,6 +10,9 @@
 img {
 	width: 300px
 }
+.alCenter{
+	text-align: center;
+}
 </style>
 </head>
 <!-- getAttribute값 가져오기 -->
@@ -71,22 +74,42 @@ li {
 	<div class="header">
 		<input type="text" id="reply" class="col-sm-9">
 		<button id="addReply" class="btn btn-primary">댓글등록</button>
+		<button id="deleteBtn" class="btn btn-danger">삭제</button>
 	</div>
 	<!-- 댓글목록 -->
-	<div class="content">
+	<!-- <div class="content">
 		<ul>
 			<li><span class="col-sm-2">글번호</span> <span class="col-sm-5">글내용</span>
 				<span class="col-sm-2">작성자</span> <span class="col-sm-2">삭제</span></li>
 		</ul>
-	</div>
-	<div class="footer">
+	</div> -->
+	
+	<!-- <div class="footer">
 	<nav aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 			
 			
 		</ul>
 	</nav>
-	</div>
+	</div> -->
+	<table id="example" class="display table" style="width:100%">
+        <thead>
+            <tr>
+                <th>댓글번호</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일지</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>댓글번호</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>작성일지</th>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <script>
 	let logId = '${loginId}';
@@ -109,5 +132,12 @@ li {
 						}
 					});
 </script>
-<script src="js/replyService.js"></script>
-<script src="js/reply.js"></script>
+<script src="js/replyService.js"></script> 
+<!-- <script src="js/reply.js"></script>  -->
+
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
+<script src ="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src= "https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="js/reply_dt.js"></script>

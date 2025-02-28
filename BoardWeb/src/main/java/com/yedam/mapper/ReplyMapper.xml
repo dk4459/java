@@ -4,7 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.yedam.mapper.ReplyMapper">
-
+   	<!-- 캘린더 등록 -->
+   	<insert id="insertEvent" parameterType="String">
+   		INSERT INTO tbl_calander (title,start_date,end_date)
+   		VALUES (#{title},#{start},#{end})
+   	</insert>
+   <!-- 캘린더 조회문 -->
+   <select id="fullData" resultType="map">
+   	SELECT title AS "title"
+   		  ,start_date AS "start"
+   		  ,end_date AS "end"  
+   	FROM tbl_calander
+   </select>
+   
+  <!--dataTables를 이용하기 위한 쿼리문 -->
+  <select id="replyTableList" resultType="com.yedam.vo.ReplyVO" parameterType="int">
+  	SELECT *
+  	FROM tbl_reply
+  	WHERE board_no = #{boardNo}
+  </select>
   <select id="replyList" parameterType="int" resultType="com.yedam.vo.ReplyVO">
   	SELECT tbl_a.*
   	FROM (SELECT /*+ INDEX_DESC (r PK_REPLY)*/
@@ -26,19 +44,24 @@
   	FROM tbl_reply 
   	WHERE reply_no = #{rno}
   </select>
+  
+  <!-- 등록 -->
   <insert id="insertReply" parameterType="com.yedam.vo.ReplyVO">
-  	<selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
-	    	SELECT reply_seq.nextval 
+  	<selectKey   keyProperty="replyNo,replyDate" resultType="com.yedam.vo.ReplyVO" order="BEFORE">
+	    	SELECT reply_seq.nextval replyNo,TO_CHAR(SYSDATE, 'YYYY-MM-DD')replyDate
   			FROM dual
 	</selectKey>
   		INSERT INTO tbl_reply(reply_no, reply,replyer, board_no)
   		VALUES(#{replyNo},#{reply},#{replyer},#{boardNo})
   </insert>
   
-  <delete id="deleteReply" parameterType="int">
+  <!-- 삭제 -->
+  <delete id="deleteReply" parameterType="Date">
   		DELETE FROM tbl_reply 
   		WHERE reply_no = #{replyNo} 
   </delete>
+  
+  <!-- 차트 -->
   <select id="chartData" resultType="map">
   	SELECT e.department_id,
   			d.department_name,

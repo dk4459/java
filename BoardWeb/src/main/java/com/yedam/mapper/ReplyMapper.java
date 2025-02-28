@@ -14,4 +14,11 @@ public interface ReplyMapper {
 	public int insertReply(ReplyVO reply);
 	public int deleteReply(int replyNo);
 	public List<Map<String,Object>> chartData();
+	public List<ReplyVO> replyTableList(int boardNo);
+	
+	//캘린더
+	public List<Map<String,Object>> fullData();
+	public int insertEvent(@Param("title") String title,
+						  @Param("start") String start,
+						  @Param("end") String end);
 }

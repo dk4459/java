@@ -14,10 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.Controller.AddBoardControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
+import com.yedam.Controller.CalanderControl;
 import com.yedam.Controller.CharFormControl;
 import com.yedam.Controller.Control;
+import com.yedam.Controller.CreateDate;
 import com.yedam.Controller.DataControl;
+import com.yedam.Controller.DataTableControl;
 import com.yedam.Controller.DeleteBoardControl;
+import com.yedam.Controller.FullData;
 import com.yedam.Controller.LogOutControl;
 import com.yedam.Controller.LoginControl;
 import com.yedam.Controller.MainControl;
@@ -77,6 +81,13 @@ public class FrontController extends HttpServlet{
 		map.put("/replyRemove.do", new ReplyRemoveControl());
 		map.put("/totalReply.do", new ReplyCountControl());
 		map.put("/chart.do", new CharFormControl());
+		map.put("/datatable.do", new DataTableControl());
+		
+		
+		//캘린더
+		map.put("/full.do", new CalanderControl());
+		map.put("/fullData.do", new FullData());
+		map.put("/insertData.do", new CreateDate());
 	}
 	
 	@Override
