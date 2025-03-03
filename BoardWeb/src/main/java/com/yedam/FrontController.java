@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.Controller.AddBoardControl;
+import com.yedam.Controller.AddFormControl;
+import com.yedam.Controller.AddMemberControl;
+import com.yedam.Controller.AjaxControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
 import com.yedam.Controller.CalanderControl;
@@ -33,9 +36,8 @@ import com.yedam.Controller.ReplyAddControl;
 import com.yedam.Controller.ReplyCountControl;
 import com.yedam.Controller.ReplyFormControl;
 import com.yedam.Controller.ReplyRemoveControl;
-import com.yedam.Controller.AddFormControl;
-import com.yedam.Controller.AddMemberControl;
-import com.yedam.Controller.AjaxControl;
+import com.yedam.kakao.KakaoControl;
+import com.yedam.kakao.KakaoForm;
 
 
 /*
@@ -88,6 +90,11 @@ public class FrontController extends HttpServlet{
 		map.put("/full.do", new CalanderControl());
 		map.put("/fullData.do", new FullData());
 		map.put("/insertData.do", new CreateDate());
+		
+		
+		//카카오
+		map.put("/kakaoForm.do", new KakaoForm());
+		map.put("/kakaoControl.do", new KakaoControl());
 	}
 	
 	@Override
