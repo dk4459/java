@@ -15,6 +15,7 @@ import com.yedam.Controller.AddBoardControl;
 import com.yedam.Controller.AddFormControl;
 import com.yedam.Controller.AddMemberControl;
 import com.yedam.Controller.AjaxControl;
+import com.yedam.Controller.ApiControl;
 import com.yedam.Controller.BoardControl;
 import com.yedam.Controller.BoardListControl;
 import com.yedam.Controller.CalanderControl;
@@ -24,10 +25,12 @@ import com.yedam.Controller.CreateDate;
 import com.yedam.Controller.DataControl;
 import com.yedam.Controller.DataTableControl;
 import com.yedam.Controller.DeleteBoardControl;
+import com.yedam.Controller.DeleteDate;
 import com.yedam.Controller.FullData;
 import com.yedam.Controller.LogOutControl;
 import com.yedam.Controller.LoginControl;
 import com.yedam.Controller.MainControl;
+import com.yedam.Controller.MapControl;
 import com.yedam.Controller.MemberListControl;
 import com.yedam.Controller.ModifyBoardControl;
 import com.yedam.Controller.ModifyFormControl;
@@ -90,11 +93,16 @@ public class FrontController extends HttpServlet{
 		map.put("/full.do", new CalanderControl());
 		map.put("/fullData.do", new FullData());
 		map.put("/insertData.do", new CreateDate());
+		map.put("/deleteCal.do", new DeleteDate());
 		
+		//학원에서 배우는 api
+		map.put("/map.do", new MapControl());
+		map.put("/api.do", new ApiControl());
 		
 		//카카오
 		map.put("/kakaoForm.do", new KakaoForm());
 		map.put("/kakaoControl.do", new KakaoControl());
+		
 	}
 	
 	@Override

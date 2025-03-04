@@ -7,10 +7,12 @@
       <pattern>%boldGreen(%5level) %boldGreen([%thread]) - %boldGreen(%msg%n)</pattern>
     </encoder>
   </appender>
-
-  <logger name="com.yedam.mapper.BoardMapper">
-    <level value="debug"/>
-  </logger>
+	
+<!-- 모든 로그 남기기 -->
+  <logger name="com.yedam" level="DEBUG"/>  
+  <logger name="jdbc.resultsettable" level="DEBUG" />
+  <logger name="jdbc.sqltiming" level="DEBUG" />
+  
   <root level="error">
     <appender-ref ref="stdout"/>
   </root>

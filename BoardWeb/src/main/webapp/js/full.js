@@ -1,14 +1,28 @@
 /*
  *  full.js
  */
-
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
   let eventAll=[];
+  let sameDay = [];
   fetch('fullData.do')
   .then(result=> result.json())
   .then(function(result){
-		eventAll=result;
+	   for(let event of result){		
+			let startSplit =event.start.split('-')
+			let endSplit= event.start.split('-')
+		    let start = new Date(startSplit[0],startSplit[1]-1,startSplit[2])
+			let end = new Date(endSplit[0],endSplit[1]-1,endSplit[2])
+			console.log(sameDay)
+		console.log(sameDay)
+		if(sameDay.start<=start&&sameDay.end>=start){
+		event.backgroundColor= "purple",
+		event.borderColor= "purple",
+		event.textColor= "white"
+		}
+		sameDay.push({start:start,end:end})
+		eventAll.push(event)
+	   }
   console.log(eventAll) 
   makeRow();
   })
@@ -16,6 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function makeRow(){
   var calendar = new FullCalendar.Calendar(calendarEl, {
+	/*바 색깔별로 만들고 싶은데 안되더라 다음에해봐라
+	  plugins: eventAll,
+	  initialView: 'resourceTimelineWeek',
+	  resources: [
+	    { title: 'Resource A' },
+	    { title: 'Resource B' }
+	  ],*/
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -31,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  			   alert('타이틀값을 입력하세요')
 	  	   			return;
 	  	   }
+		   console.log(arg.startStr)
 		fetch('insertData.do?title='+title+'&start='+arg.startStr+'&end='+arg.endStr)
 		 .then(result=> result.json())
 		 .then(function(result){
@@ -54,8 +76,24 @@ document.addEventListener('DOMContentLoaded', function() {
       calendar.unselect()
     },
     eventClick: function(arg) {
+		console.log(arg)
+		let title=arg.event._def.title;
+		let start =arg.event.startStr;
+		let end =arg.event.endStr;
+		console.log(arg);
       if (confirm('Are you sure you want to delete this event?')) {
-        arg.event.remove()
+		fetch('deleteCal.do?title='+title+'&start='+start+'&end='+end)
+		.then(result=> result.json())
+				 .then(function(result){
+				 	 if(result.retCode=="NG"){
+						alert('삭제실패')
+						return
+					 }else{
+						alert('삭제성공')
+						arg.event.remove()
+					 }
+				   })
+    
       }
     },
     editable: true,

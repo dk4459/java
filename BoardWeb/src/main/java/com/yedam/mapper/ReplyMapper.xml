@@ -4,6 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.yedam.mapper.ReplyMapper">
+   	<!-- 캘린더 삭제 -->
+   	<delete id="deleteEvent" parameterType="String">
+   		DELETE FROM tbl_calander
+		WHERE TITLE=#{title}
+		  AND START_DATE =#{start}
+		  AND END_DATE=#{end}
+   	</delete>
    	<!-- 캘린더 등록 -->
    	<insert id="insertEvent" parameterType="String">
    		INSERT INTO tbl_calander (title,start_date,end_date)
