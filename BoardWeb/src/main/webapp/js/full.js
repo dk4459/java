@@ -1,4 +1,4 @@
-/*
+/* 
  *  full.js
  */
 document.addEventListener('DOMContentLoaded', function() {
@@ -13,17 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
 			let endSplit= event.start.split('-')
 		    let start = new Date(startSplit[0],startSplit[1]-1,startSplit[2])
 			let end = new Date(endSplit[0],endSplit[1]-1,endSplit[2])
-			console.log(sameDay)
-		console.log(sameDay)
-		if(sameDay.start<=start&&sameDay.end>=start){
-		event.backgroundColor= "purple",
-		event.borderColor= "purple",
-		event.textColor= "white"
+		for(item of sameDay){
+				console.log(item.start)
+				console.log(start)
+			if(item.start<=start||item.end>=start){
+			   event.backgroundColor= "purple",
+			   event.borderColor= "purple",
+			   event.textColor= "white"                  
+			}
 		}
 		sameDay.push({start:start,end:end})
 		eventAll.push(event)
 	   }
-  console.log(eventAll) 
   makeRow();
   })
   .catch(err=>console.log(err)); 
@@ -52,11 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	  			   alert('타이틀값을 입력하세요')
 	  	   			return;
 	  	   }
-		   console.log(arg.startStr)
 		fetch('insertData.do?title='+title+'&start='+arg.startStr+'&end='+arg.endStr)
 		 .then(result=> result.json())
 		 .then(function(result){
-			console.log("결과값"+result)
 		 	 if(result.retCode=="NG"){
 				alert('등록이 실패하였습니다.')
 				return
@@ -76,11 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
       calendar.unselect()
     },
     eventClick: function(arg) {
-		console.log(arg)
 		let title=arg.event._def.title;
 		let start =arg.event.startStr;
 		let end =arg.event.endStr;
-		console.log(arg);
       if (confirm('Are you sure you want to delete this event?')) {
 		fetch('deleteCal.do?title='+title+'&start='+start+'&end='+end)
 		.then(result=> result.json())
